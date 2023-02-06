@@ -65,7 +65,7 @@ const MainCryptoTracker = () => {
 		<div>
 			<SimpleBar
 				style={{
-					maxHeight: '80vh',
+					maxHeight: '85vh',
 					overflowY: 'scroll',
 				}}
 			>
@@ -85,7 +85,6 @@ const MainCryptoTracker = () => {
 							</div>
 						);
 					})}
-					{/* <MyTable allMyData={allData} /> */}
 				</div>
 			</SimpleBar>
 		</div>
