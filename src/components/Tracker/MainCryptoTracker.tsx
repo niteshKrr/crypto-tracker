@@ -70,15 +70,15 @@ const MainCryptoTracker = () => {
 				}}
 			>
 				<div className="pr-32">
-					{chains.map((chain, idx) => {
+					{chains.map((chain, idx1) => {
 						return (
-							<div key={idx}>
+							<div key={idx1}>
 								<HeadingChainComponent idx={Number(chain)} />
-								{address.map((addr, idx) => {
+								{address.map((addr, idx2) => {
 									return (
-										<div key={idx}>
+										<div key={idx2}>
 											<HeadingAddressComponent address={addr} />
-											<MyTable allMyData={allData[Number(chain)][idx]} />
+											<MyTable allMyData={allData[idx1][idx2]} />
 										</div>
 									);
 								})}

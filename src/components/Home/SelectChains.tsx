@@ -21,7 +21,7 @@ const SelectChains = ({ myChains, setMyChains }: SelectChainsProps) => {
 				<Checkbox value="0">Ethereum Mainnet</Checkbox>
 				<Checkbox value="1">Polygon Mainnet</Checkbox>
 				<Checkbox value="2">Arbitrum Mainnet</Checkbox>
-				{/* <Checkbox value="3">Optimism Mainnet</Checkbox> */}
+				<Checkbox value="3">Optimism Mainnet</Checkbox>
 			</Checkbox.Group>
 		</div>
 	);
