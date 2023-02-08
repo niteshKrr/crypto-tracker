@@ -29,7 +29,7 @@ const MyDashboard = ({ allData }: any) => {
           overflowY: "scroll",
         }}
       >
-        <div className="mx-60 py-60">
+        <div className="mx-80 py-60">
           <Collapse.Group shadow>
             {chains.map((chain, idx1) => (
               <div key={idx1}>
