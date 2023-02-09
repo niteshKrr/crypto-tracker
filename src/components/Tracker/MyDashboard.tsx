@@ -1,25 +1,29 @@
 import React from "react";
-import {
-  Collapse,
-  Text,
-  Grid,
-  Avatar,
-  Link,
-  Table,
-  Divider,
-} from "@nextui-org/react";
+import { Collapse, Text, Avatar, Table, Divider } from "@nextui-org/react";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
+import { useRouter } from 'next/router'
+import {setToken} from '@/redux/slices/UserDetailsSlice'
+
 
 const myChains = ["Ethereum", "Polygon", "Arbitrum", "Optimism"];
 const myImg = ["eth.jpg", "polygon.png", "Arbitrum.png", "optimism.png"];
 
 const MyDashboard = ({ allData }: any) => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const { address, chains } = useSelector(
     (state: RootState) => state.userDetails
   );
+
+  const onclickHandler = (symbol: string) => {
+    console.log("curr token is:", symbol);
+    dispatch(setToken(symbol));
+    router.push(`/historicalPriceOfToken`);
+  };
 
   return (
     <div className=" bg-gradient-to-r from-purple-600 to-pink-600 h-screen">
@@ -65,6 +69,7 @@ const MyDashboard = ({ allData }: any) => {
                                   minWidth: "100%",
                                   width: "600px",
                                 }}
+                                selectionMode="single"
                               >
                                 <Table.Header>
                                   <Table.Column>TOKEN</Table.Column>
@@ -75,9 +80,34 @@ const MyDashboard = ({ allData }: any) => {
                                   {allData[idx1][idx2].map(
                                     (data: any, idx3: number) => (
                                       <Table.Row key={idx3}>
-                                        <Table.Cell>{data.name}</Table.Cell>
-                                        <Table.Cell>{data.balance}</Table.Cell>
-                                        <Table.Cell>{data.symbol}</Table.Cell>
+                                        <Table.Cell>
+                                          <div
+                                            onClick={() => {
+                                              onclickHandler(data.symbol);
+                                            }}
+                                          >
+                                            {data.name}
+                                          </div>
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                          <div
+                                            onClick={() => {
+                                              onclickHandler(data.symbol);
+                                            }}
+                                          >
+                                            {data.balance}
+                                          </div>
+                                        </Table.Cell>
+                                        <Table.Cell>
+                                          {" "}
+                                          <div
+                                            onClick={() => {
+                                              onclickHandler(data.symbol);
+                                            }}
+                                          >
+                                            {data.symbol}{" "}
+                                          </div>
+                                        </Table.Cell>
                                       </Table.Row>
                                     )
                                   )}
