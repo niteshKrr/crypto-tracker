@@ -39,18 +39,18 @@ export const options = {
 let fetchedData: string[] = [];
 let fetchedData1: string[] = [];
 const labels = [
-  "col-1",
-  "col-2",
-  "col-3",
-  "col-4",
-  "col-5",
-  "col-6",
-  "col-7",
-  "col-8",
-  "col-9",
-  "col-10",
-  "col-11",
-  "col-12",
+  "t1",
+  "t2",
+  "t3",
+  "t4",
+  "t5",
+  "t6",
+  "t7",
+  "t8",
+  "t9",
+  "t10",
+  "t11",
+  "t12",
 ];
 
 export const data = {
@@ -73,6 +73,7 @@ export const data = {
 
 const HistoricalPriceOfToken = () => {
   const [loading, setLoading] = useState(true);
+  const [datanotFoundByFetch, setDatanotFoundByFetch] = useState("");
 
   const { token } = useSelector((state: RootState) => state.userDetails);
 
@@ -81,9 +82,14 @@ const HistoricalPriceOfToken = () => {
     const fetchHistoricalPrice = () => {
       axios
         .get(
-          `https://min-api.cryptocompare.com/data/v2/histohour?fsym=${token}&tsym=USD&limit=20&toTs=-1&api_key=${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
+          `https://min-api.cryptocompare.com/data/v2/histohour?fsym=${token}&tsym=USD&limit=50&toTs=-1&api_key=${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}`
         )
         .then(function (response) {
+          if (response.data.Response === "Error") {
+            setDatanotFoundByFetch("Data not found");
+            setLoading(false);
+            return;
+          }
           // handle success
           for (let i = 0; i < response.data.Data.Data.length; i++) {
             fetchedData.push(response.data.Data.Data[i].high);
@@ -111,18 +117,27 @@ const HistoricalPriceOfToken = () => {
         </div>
       </div>
     );
-  }
-
-  return (
-    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-200 to-pink-200">
-      <div style={{ heigh: 850, width: 1000 }}>
-        <h1 className="text-center font-bold py-10">
-          Price Changing Chart of {token}
-        </h1>
-        <Line options={options} data={data} />
+  } else if (datanotFoundByFetch !== "") {
+    return (
+      <div className=" bg-gradient-to-r from-purple-600 to-pink-600 h-screen">
+        <div className="flex justify-center items-center h-screen">
+          <div className="text-black text-xl">Sorry 😭 </div>
+          <div className="text-black text-xl">Data not found...</div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gradient-to-r from-purple-200 to-pink-200">
+        <div style={{ height: 850, width: 1000 }}>
+          <h1 className="text-center font-bold py-10">
+            Price Changing Chart of {token}
+          </h1>
+          <Line options={options} data={data} />
+        </div>
+      </div>
+    );
+  }
 };
 
 export default HistoricalPriceOfToken;
