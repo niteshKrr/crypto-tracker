@@ -24,6 +24,10 @@ Track your crypto portfolio in just three clicks.
 
 ![alt text - loading.....](githubImg/06.png)
 
+#### Here's you can also track your coin's/token's past changing price   😃
+
+![alt text - loading.....](githubImg/07.png)
+
 
 
 
